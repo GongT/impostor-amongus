@@ -1,0 +1,12 @@
+{
+	"appId": "me.gongt.impostor",
+	"productName": "【AmongUs】mod、服务器 管理工具",
+	"npmRebuild": true,
+	"publish": {
+		"provider": "github"
+	},
+	"afterPack": "scripts/after-pack.js",
+	"extraResources": ["resources"],
+	"extraFiles": [],
+	"files": "lib"
+}
