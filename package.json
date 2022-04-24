@@ -1,0 +1,38 @@
+{
+	"name": "impostor-amongus",
+	"description": "amongus mod管理器",
+	"author": "GongT",
+	"version": "0.0.1",
+	"main": "./lib/index.js",
+	"repository": "https://github.com/gongt/impostor-amongus",
+	"dependencies": {
+		"electron-log": "^4.4.6",
+		"electron-updater": "^5.0.1",
+		"tslib": "^2.4.0"
+	},
+	"scripts": {
+		"clean": "rimraf lib",
+		"rebuild": "run-s -n clean build",
+		"build": "run-p build:*",
+		"build:tsc": "tsc -p src",
+		"build:html": "pwsh scripts/copy-html.ps1",
+		"build:scss": "sass -I src --embed-sources --color src/:lib/",
+		"build:icon": "pwsh scripts/icon.ps1",
+		"watch": "tsc -p src -w",
+		"electron-builder": "electron-builder"
+	},
+	"devDependencies": {
+		"@build-script/single-dog-asset": "^1.0.17",
+		"asar": "^3.1.0",
+		"dotenv": "^16.0.0",
+		"electron": "^18.1.0",
+		"electron-builder": "^23.0.3",
+		"gulp": "^4.0.2",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^2.6.2",
+		"rimraf": "^3.0.2",
+		"sass": "^1.50.1",
+		"source-map-support": "^0.5.21",
+		"typescript": "^4.6.3"
+	}
+}
