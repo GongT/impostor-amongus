@@ -2,7 +2,7 @@
 	"name": "impostor-amongus",
 	"description": "amongus mod管理器",
 	"author": "GongT",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"main": "./lib/index.js",
 	"repository": "https://github.com/gongt/impostor-amongus",
 	"dependencies": {
