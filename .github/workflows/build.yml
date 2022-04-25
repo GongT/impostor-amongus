@@ -1,0 +1,73 @@
+name: Electron Build
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    branches:
+      - master
+    inputs:
+
+jobs:
+  cancel:
+    name: 清除构建记录
+    runs-on: ubuntu-latest
+    steps:
+      - name: cancel running workflows
+        uses: GongT/cancel-previous-workflows@v1.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DELETE: 'yes'
+
+  build:
+    name: 生成应用并按需发布
+
+    strategy:
+      matrix:
+        system:
+          # - linux
+          - windows
+      fail-fast: false
+    runs-on: ubuntu-latest
+    env:
+      TARGET_SYSTEM: ${{ matrix.system }}
+
+    steps:
+      - name: 检出
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: 缓存下载
+        id: cache-deps
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-electron-download
+        with:
+          path: |
+            ~/.cache/electron
+          key: electron-${{ matrix.system }}-${{ github.repository }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            electron-${{ matrix.system }}-${{ github.repository }}-
+            electron-${{ matrix.system }}-
+            electron-
+
+      - name: 安装NodeJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: '**/package.json'
+
+      - name: 安装依赖
+        shell: bash
+        run: |
+          yarn install
+          cd scripts && yarn install
+
+      - name: 运行构建 (electron-builder)
+        shell: pwsh
+        run: scripts/build-publish.ps1
+        env:
+          GH_TOKEN: ${{ github.token }}

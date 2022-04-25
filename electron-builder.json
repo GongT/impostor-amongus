@@ -1,0 +1,12 @@
+{
+	"appId": "me.gongt.impostor",
+	"productName": "amongus-tool",
+	"npmRebuild": true,
+	"publish": {
+		"provider": "github"
+	},
+	"afterPack": "scripts/after-pack.js",
+	"extraResources": ["resources"],
+	"extraFiles": [],
+	"files": "lib"
+}

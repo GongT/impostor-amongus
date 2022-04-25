@@ -1,0 +1,7 @@
+{
+	"name": "_private_",
+	"private": true,
+	"dependencies": {
+		"@electron/get": "latest"
+	}
+}
